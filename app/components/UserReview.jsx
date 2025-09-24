@@ -64,7 +64,7 @@ const UserReview = () => {
             key={i}
             variants={item}
             whileHover={{ y: -3 }}
-            className="relative overflow-hidden rounded-3xl border border-white bg-white p-6 shadow-md"
+            className="relative overflow-hidden  rounded-[1.4rem] border border-white bg-white p-6 shadow-md"
           >
             <Image
               src="/assets/quote.png"
