@@ -1,9 +1,10 @@
 import Image from "next/image";
+import FAQ from "./components/FAQ";
 
 export default function Home() {
   return (
     <div>
-      <h1>Welcome to Next.js!</h1>
+      <FAQ />
     </div>
   );
 }
