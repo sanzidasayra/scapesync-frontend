@@ -107,7 +107,7 @@ export default function VerifyEmailPage() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-[-100px]">
       <button
         type="button"
         onClick={() => router.back()}
@@ -121,7 +121,7 @@ export default function VerifyEmailPage() {
         Please check your email!
       </h1>
 
-      <p className="mt-2 text-sm text-[#6B7280]">
+      <p className="mt-2 text-sm text-[#6B7280] max-w-md mx-auto">
         We’ve emailed a 6-digit confirmation code to{" "}
         <span className="font-medium text-[#111827]">{email || "your inbox"}</span>,
         please enter the code in the boxes below to verify your email.
@@ -153,8 +153,8 @@ export default function VerifyEmailPage() {
         type="button"
         onClick={verify}
         disabled={loading}
-        className="mt-6 w-full rounded-lg bg-[#2F7A45] py-3 text-white font-semibold
-                   shadow-sm hover:bg-[#2a6c3e] disabled:opacity-70"
+        className="mt-6 w-full rounded-lg bg-[#49AE44] py-3 text-white font-semibold
+                   shadow-sm disabled:opacity-70"
       >
         {loading ? "Verifying..." : "Verify"}
       </button>

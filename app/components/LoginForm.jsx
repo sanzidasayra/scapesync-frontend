@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-
+import { FaEye } from "react-icons/fa";
+import { IoEyeOff } from "react-icons/io5";
 
 const LoginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Enter a valid email"),
@@ -32,6 +32,15 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
+  const shownRef = useRef({ verified: false, reset: false });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      shownRef.current.verified = sessionStorage.getItem("toast_verified_shown") === "1";
+      shownRef.current.reset = sessionStorage.getItem("toast_reset_shown") === "1";
+    }
+  }, []);
+
   useEffect(() => {
     const verified = search.get("verified");
     const reset = search.get("reset");
@@ -39,11 +48,16 @@ export default function LoginForm() {
 
     if (email) setForm((p) => ({ ...p, email }));
 
-    if (verified === "1") {
-      toast.success("Email verified successfully — please log in.");
+    if (verified === "1" && !shownRef.current.verified) {
+      shownRef.current.verified = true;
+      toast.success("Email verified successfully — please log in.", { id: "verified-toast" });
+      if (typeof window !== "undefined") sessionStorage.setItem("toast_verified_shown", "1");
     }
-    if (reset === "1") {
-      toast.success("Password reset successful — please log in.");
+
+    if (reset === "1" && !shownRef.current.reset) {
+      shownRef.current.reset = true;
+      toast.success("Password reset successful — please log in.", { id: "reset-toast" });
+      if (typeof window !== "undefined") sessionStorage.setItem("toast_reset_shown", "1");
     }
   }, [search]);
 
@@ -82,7 +96,7 @@ export default function LoginForm() {
       if (data?.token_type) localStorage.setItem("token_type", data.token_type);
 
       toast.success("Logged in successfully.");
-      router.replace("/");
+      router.replace("/success");
     } catch (err) {
       const msg = err.message || "Login failed. Try again.";
       setErrMsg(msg);
@@ -102,7 +116,7 @@ export default function LoginForm() {
             type="email"
             value={form.email}
             onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-            placeholder="eddie_lake@gmail.com"
+            placeholder="Enter your email"
             className="w-full rounded-md border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2F7A45]"
           />
           <span className="pointer-events-none absolute -top-2 left-3 bg-white px-1 text-xs text-gray-400">
@@ -124,7 +138,7 @@ export default function LoginForm() {
             className="absolute inset-y-0 right-3 flex items-center text-gray-500"
             aria-label={showPwd ? "Hide password" : "Show password"}
           >
-            {showPwd ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            {showPwd ? <IoEyeOff size={18} className="text-gray-500" /> : <FaEye size={18} className="text-gray-500" />}
           </button>
         </div>
 
@@ -141,22 +155,17 @@ export default function LoginForm() {
             <span>Remember me</span>
           </label>
 
-          <Link
-            href="/forgot-password"
-            className="text-sm font-medium text-[#2F7A45] hover:underline"
-          >
+          <Link href="/forgot-password" className="text-sm text-[#2F7A45] hover:underline">
             Forgot password?
           </Link>
         </div>
 
-        {errMsg ? (
-          <p className="text-sm text-red-600">{errMsg}</p>
-        ) : null}
+        {errMsg ? <p className="text-sm text-red-600">{errMsg}</p> : null}
 
         <button
           type="submit"
           disabled={loading}
-          className="mt-2 w-full rounded-lg bg-[#2F7A45] py-3 text-white font-semibold shadow-[0_3px_0_rgba(0,0,0,0.08)] hover:bg-[#2a6c3e] disabled:opacity-70"
+          className="mt-4 w-full rounded-lg bg-[#49AE44] py-3 text-white font-bold text-[16px] shadow-[0_3px_0_rgba(0,0,0,0.08)] disabled:opacity-70"
         >
           {loading ? "Logging in..." : "Login"}
         </button>
@@ -170,7 +179,7 @@ export default function LoginForm() {
         <button
           type="button"
           className="w-full rounded-md border border-gray-300 py-3 text-gray-700 font-semibold hover:bg-gray-50 transition inline-flex items-center justify-center gap-2"
-          onClick={() => toast("Google login not connected yet.", { icon: "⚙️" })}
+          onClick={() => toast("Google login not connected yet.")}
         >
           <FcGoogle className="h-5 w-5" />
           Log in with Google

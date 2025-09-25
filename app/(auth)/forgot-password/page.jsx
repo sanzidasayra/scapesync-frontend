@@ -57,7 +57,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-[-100px]">
       <button
         type="button"
         onClick={() => router.back()}
@@ -67,11 +67,11 @@ export default function ForgotPasswordPage() {
         Back
       </button>
 
-      <h1 className="text-2xl md:text-[28px] font-semibold text-[#111827]">
+      <h1 className="text-2xl md:text-[32px] font-bold text-[#111827]">
         Forgot your password?
       </h1>
 
-      <p className="mt-2 text-sm text-[#6B7280]">
+      <p className="mt-4 text-[16px] text-gray-400 max-w-md mx-auto">
         Enter the email associated with your account. We’ll send a 6-digit code to reset your password.
       </p>
 
@@ -100,8 +100,8 @@ export default function ForgotPasswordPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-[#2F7A45] py-3 text-white font-semibold
-                     shadow-[0_2px_0_rgba(0,0,0,0.1)] hover:bg-[#2a6c3e] disabled:opacity-70"
+          className="w-full rounded-lg bg-[#49AE44] py-3 text-white font-semibold
+                     shadow-[0_2px_0_rgba(0,0,0,0.1)] disabled:opacity-70"
         >
           {submitting ? "Sending OTP..." : "Send OTP"}
         </button>

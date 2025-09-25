@@ -2,7 +2,11 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FiChevronLeft, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiChevronLeft } from "react-icons/fi";
+import { IoEyeOff } from "react-icons/io5";
+import { FaEye } from "react-icons/fa";
+
+
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -83,7 +87,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-[-100px]">
       <button
         type="button"
         onClick={() => router.back()}
@@ -120,7 +124,7 @@ export default function ResetPasswordPage() {
             className="absolute inset-y-0 right-3 flex items-center text-gray-500"
             aria-label={showPwd ? "Hide password" : "Show password"}
           >
-            {showPwd ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            {showPwd ? <IoEyeOff size={18} /> : <FaEye  size={18} />}
           </button>
         </div>
 
@@ -139,7 +143,7 @@ export default function ResetPasswordPage() {
             className="absolute inset-y-0 right-3 flex items-center text-gray-500"
             aria-label={showConfirm ? "Hide password" : "Show password"}
           >
-            {showConfirm ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            {showConfirm ? <IoEyeOff size={18} /> : <FaEye size={18} />}
           </button>
         </div>
 
@@ -148,8 +152,8 @@ export default function ResetPasswordPage() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-[#2F7A45] py-3 text-white font-semibold
-                     shadow-[0_2px_0_rgba(0,0,0,0.1)] hover:bg-[#2a6c3e] disabled:opacity-70"
+          className="w-full rounded-lg bg-[#49AE44] py-3 text-white font-semibold
+                     shadow-[0_2px_0_rgba(0,0,0,0.1)] disabled:opacity-70"
         >
           {submitting ? "Resetting..." : "Reset Password"}
         </button>

@@ -11,10 +11,12 @@ export default function ClientWrapper({ children }) {
   const hideNavFooter = noNavFooterRoutes.includes(pathname);
 
   return (
+    <>
     <div className="max-w-[104.9rem] mx-auto">
       {!hideNavFooter && <Navbar />}
       {children}
-      {!hideNavFooter && <Footer />}
     </div>
+    {!hideNavFooter && <Footer />}
+    </>
   );
 }

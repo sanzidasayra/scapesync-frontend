@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Banner = () => {
@@ -40,23 +41,47 @@ const Banner = () => {
           scheduling, service tracking, and team management in one powerful app.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-[1.125rem]">
-          <button className="flex items-center gap-3 border border-[#ABDAA9] rounded-[6px] px-3.5">
-            <Image src="/assets/Apple.png" alt="App Store" height={27} width={22} sizes="22px" />
-            <div className="py-[0.6rem]">
-              <p className="text-[9px]">Download on the</p>
-              <h3 className="font-semibold text-[18px]">App Store</h3>
-            </div>
-          </button>
+         <div className="flex flex-wrap items-center justify-start gap-3 sm:gap-[1.125rem]">
+              <Link 
+                href="https://www.apple.com/app-store/"
+                target="_blank"
+                rel="noopener noreferrer"
+                type="button"
+                className="flex items-center gap-3 rounded-[6px] border border-[#ABDAA9] px-3.5 backdrop-blur-sm bg-white/0 hover:bg-white/5 transition"
+              >
+                <Image
+                  src="/assets/app.png"
+                  alt="App Store"
+                  height={27}
+                  width={22}
+                  sizes="22px"
+                />
+                <div className="py-[0.6rem] text-left">
+                  <p className="text-[9px] leading-3">Download on the</p>
+                  <h3 className="text-[18px] font-semibold leading-5">App Store</h3>
+                </div>
+              </Link>
 
-          <button className="flex items-center gap-3 border border-[#ABDAA9] rounded-[6px] px-3.5">
-            <Image src="/assets/Playstore.png" alt="Play Store" height={27} width={22} sizes="22px" />
-            <div className="py-[0.6rem]">
-              <p className="text-[9px]">Download on the</p>
-              <h3 className="font-semibold text-[18px]">Google Play</h3>
+              <Link 
+                href="https://play.google.com/store/apps"
+                target="_blank"
+                rel="noopener noreferrer"
+                type="button"
+                className="flex items-center gap-3 rounded-[6px] border border-[#ABDAA9] px-3.5 backdrop-blur-sm bg-white/0 hover:bg-white/5 transition"
+              >
+                <Image
+                  src="/assets/Playstore.png"
+                  alt="Google Play"
+                  height={27}
+                  width={22}
+                  sizes="22px"
+                />
+                <div className="py-[0.6rem] text-left">
+                  <p className="text-[9px] leading-3">Download on the</p>
+                  <h3 className="text-[18px] font-semibold leading-5">Google Play</h3>
+                </div>
+              </Link>
             </div>
-          </button>
-        </div>
       </div>
 
       <div className="w-full max-w-[720px] md:w-auto flex justify-center md:justify-end">
