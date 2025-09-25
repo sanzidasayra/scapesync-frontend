@@ -22,9 +22,9 @@ const Banner = () => {
             <span className="relative inline-block">
               One Smart App
               <Image
-                src="/assets/banner-bg2.png"
+                src="/assets/banner-bg3.png"
                 alt=""
-                width={300}
+                width={370}
                 height={28}
                 className="pointer-events-none select-none absolute left-2/3 -translate-x-1/2 bottom-0 translate-y-2"
                 aria-hidden
