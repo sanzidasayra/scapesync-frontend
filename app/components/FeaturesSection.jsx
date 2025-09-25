@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
 
-
 const features = [
   {
     icon: "/assets/appointment-02.png",
@@ -32,10 +31,10 @@ const features = [
 const FeaturesSection = () => {
   return (
     <section className="mb-[10.9rem]">
-      <div>
-        <div className="lg:flex lg:items-start lg:justify-between lg:divide-x lg:divide-[#F4F6F8]">
+      <div className="px-4 sm:px-6 lg:px-0">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-[#F4F6F8]">
           {features.map((item, idx) => (
-            <div key={idx} className="py-6 lg:px-8 max-w-sm">
+            <div key={idx} className="py-6 lg:px-8">
               <div className="items-start gap-4">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#ECFCEB] ring-1 ring-green-200/60">
                   <Image
@@ -45,10 +44,13 @@ const FeaturesSection = () => {
                     height={20}
                     className="object-contain"
                     priority={idx === 0}
+                    sizes="40px"
                   />
                 </span>
                 <div>
-                  <h3 className="text-[#212B36] font-semibold mt-[1.2rem]">{item.title}</h3>
+                  <h3 className="text-[#212B36] font-semibold mt-[1.2rem]">
+                    {item.title}
+                  </h3>
                   <p className="mt-1 text-sm text-[#637381]">{item.desc}</p>
                 </div>
               </div>

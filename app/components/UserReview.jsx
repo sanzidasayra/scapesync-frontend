@@ -43,17 +43,18 @@ const item = {
 const UserReview = () => {
   return (
     <div>
-      <div>
-        <h1 className="text-center font-bold text-5xl text-[#212B36] mb-2">
+      <div className="px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24 md:mt-32">
+        <h1 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl text-[#212B36] mb-2 ">
           What Our Users Are Saying
         </h1>
-        <p className="text-center text-[#637381] text-[14px]">
+        <p className="text-center text-sm text-[#637381] text-[14px]">
           Real stories from clients, employees, and business owners who use our app every day.
         </p>
       </div>
 
+
       <motion.div
-        className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 px-4 sm:px-6 lg:px-8"
         variants={container}
         initial="hidden"
         whileInView="show"
