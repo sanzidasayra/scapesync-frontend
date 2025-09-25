@@ -7,7 +7,7 @@ import Footer from "./Footer";
 export default function ClientWrapper({ children }) {
   const pathname = usePathname();
 
-  const noNavFooterRoutes = ["/register", "/login", "/verify", "/forgot-password", "/reset-password", "/logout", "/success", "/reset-otp"];
+  const noNavFooterRoutes = ["/register", "/login", "/verify", "/forgot-password", "/reset-password", "/logout", "/success", "/reset-otp", "/user"];
   const hideNavFooter = noNavFooterRoutes.includes(pathname);
 
   return (

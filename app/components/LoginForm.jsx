@@ -3,8 +3,20 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { z } from "zod";
+import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+
+
+const LoginSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Enter a valid email"),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/, "Password must contain letters and numbers"),
+  remember_me: z.boolean().optional(),
+});
 
 export default function LoginForm() {
   const router = useRouter();
@@ -19,38 +31,62 @@ export default function LoginForm() {
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const [info, setInfo] = useState("");
 
   useEffect(() => {
     const verified = search.get("verified");
+    const reset = search.get("reset");
     const email = search.get("email");
+
+    if (email) setForm((p) => ({ ...p, email }));
+
     if (verified === "1") {
-      setInfo("Email verified successfully — please log in.");
-      if (email) setForm((p) => ({ ...p, email }));
+      toast.success("Email verified successfully — please log in.");
+    }
+    if (reset === "1") {
+      toast.success("Password reset successful — please log in.");
     }
   }, [search]);
 
   const submit = async (e) => {
     e.preventDefault();
     setErrMsg("");
+
+    const parsed = LoginSchema.safeParse(form);
+    if (!parsed.success) {
+      const firstIssue = parsed.error.issues?.[0];
+      const msg = firstIssue?.message || "Please fix the highlighted fields.";
+      toast.error(msg);
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch("https://apitest.softvencefsd.xyz/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(parsed.data),
       });
+
       const data = await res.json().catch(() => ({}));
+
       if (!res.ok || data?.status === false) {
-        throw new Error(data?.message || "Invalid email or password.");
+        const serverMsg =
+          data?.message ||
+          (data?.errors?.email && data.errors.email[0]) ||
+          (data?.errors?.password && data.errors.password[0]) ||
+          "Invalid email or password.";
+        throw new Error(serverMsg);
       }
 
       if (data?.token) localStorage.setItem("auth_token", data.token);
       if (data?.token_type) localStorage.setItem("token_type", data.token_type);
 
+      toast.success("Logged in successfully.");
       router.replace("/");
     } catch (err) {
-      setErrMsg(err.message || "Login failed. Try again.");
+      const msg = err.message || "Login failed. Try again.";
+      setErrMsg(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -58,6 +94,8 @@ export default function LoginForm() {
 
   return (
     <div className="w-full">
+      <Toaster position="top-right" />
+
       <form onSubmit={submit} className="mt-6 space-y-4">
         <div className="relative">
           <input
@@ -103,10 +141,17 @@ export default function LoginForm() {
             <span>Remember me</span>
           </label>
 
-          <Link href="/forgot-password" className="text-sm font-medium text-[#2F7A45] hover:underline">
+          <Link
+            href="/forgot-password"
+            className="text-sm font-medium text-[#2F7A45] hover:underline"
+          >
             Forgot password?
           </Link>
         </div>
+
+        {errMsg ? (
+          <p className="text-sm text-red-600">{errMsg}</p>
+        ) : null}
 
         <button
           type="submit"
@@ -116,7 +161,6 @@ export default function LoginForm() {
           {loading ? "Logging in..." : "Login"}
         </button>
 
-       
         <div className="my-5 flex items-center gap-2">
           <div className="flex-grow border-t border-gray-200" />
           <span className="text-sm text-gray-500">OR</span>
@@ -126,6 +170,7 @@ export default function LoginForm() {
         <button
           type="button"
           className="w-full rounded-md border border-gray-300 py-3 text-gray-700 font-semibold hover:bg-gray-50 transition inline-flex items-center justify-center gap-2"
+          onClick={() => toast("Google login not connected yet.", { icon: "⚙️" })}
         >
           <FcGoogle className="h-5 w-5" />
           Log in with Google
