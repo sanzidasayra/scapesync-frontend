@@ -18,7 +18,7 @@ export default function FAQ() {
         <h1 className="text-center text-5xl font-bold text-[#212B36]">Frequently Asked Questions</h1>
         <p className="mt-2 text-center text-[#637381] text-[14px]">Quick answers to help you get the most out of our app.</p>
     </div>
-    <div className="mx-auto max-w-[900px] px-6 py-10 mb-[10rem]">
+    <div className="mx-auto max-w-7xl px-6 py-10 mb-[10rem]">
       <ul className="space-y-3">
         {items.map((it, i) => (
           <li key={i} className="rounded-2xl border border-[#C7E6C5] bg-white p-4">
