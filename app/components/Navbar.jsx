@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => {
@@ -21,14 +22,9 @@ const Navbar = () => {
             sizes="147px"
           />
         </div>
-          <button
-          type="button"
-          className="whitespace-nowrap rounded-lg bg-[#3BA334] px-4 py-2 text-sm font-bold text-white shadow-sm transition
-                     hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3BA334]
-                     sm:px-6 sm:py-2.5 sm:text-base"
-        >
-          Get Started
-        </button>
+          <Link href="/login" className="inline-block whitespace-nowrap rounded-lg bg-[#3BA334] px-4 py-2 text-sm font-bold text-white shadow-sm transition hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3BA334] sm:px-6 sm:py-2.5 sm:text-base">
+  Get Started
+</Link>
       </div>
     </header>
   );
