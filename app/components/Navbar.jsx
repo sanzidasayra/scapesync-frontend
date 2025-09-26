@@ -57,7 +57,7 @@ const Navbar = () => {
           aria-label="Go to homepage"
         >
           <Image
-            src="/logo.png"
+            src="/Logo.png"
             alt="ScapeSync Logo"
             width={147}
             height={60}
