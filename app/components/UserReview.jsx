@@ -51,7 +51,7 @@ const UserReview = () => {
 
   return (
     <section className="relative">
-        <span className="user-review-bg hidden lg:block"></span>
+        <span className="user-review-bg "></span>
 
       <div className="px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24 md:mt-32" data-aos="fade-up">
         <h1 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl text-[#212B36] mb-2">

@@ -36,7 +36,7 @@ const Banner = () => {
           />
 
           <h1 className="font-bold leading-[1.05] text-[#212B36] max-w-[38rem] mb-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className='hero-bg-2 hidden lg:block'></span>
+            <span className='hero-bg-2 '></span>
             All Your Jobs
             <br />
             <span className="relative inline-block">
@@ -94,7 +94,7 @@ const Banner = () => {
   variants={fromRight}
   className="w-full max-w-[720px] md:w-auto flex justify-center md:justify-end relative"
 >
-  <span className='hero-bg hidden lg:block'></span>
+  <span className='hero-bg '></span>
 
   <Image
     src="/assets/Hero.png"

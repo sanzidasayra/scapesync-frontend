@@ -45,8 +45,8 @@ export default function FAQSection() {
           id="faq-heading"
           className="text-center font-bold text-[#212B36] text-3xl sm:text-4xl md:text-5xl"
         >
-          <span className="faq-bg hidden lg:block"></span>
-          <span className="faq-bg-2  hidden lg:block "></span>
+          <span className="faq-bg "></span>
+          <span className="faq-bg-2  "></span>
           Frequently Asked Questions
         </h1>
         <p className="mt-2 text-center text-[#637381] text-sm sm:text-base">

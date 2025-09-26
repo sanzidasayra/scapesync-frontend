@@ -192,7 +192,7 @@ export default function BuildForEveryone() {
             id="bfe-heading"
             className="font-bold text-3xl sm:text-4xl lg:text-[48px]"
           >
-                  <span className="build-for-everyone-bg hidden lg:block"></span>
+                  <span className="build-for-everyone-bg "></span>
 
             Build for Everyone
           </h2>
@@ -257,7 +257,7 @@ export default function BuildForEveryone() {
   }
 >
   <motion.div {...floatAnim} className="will-change-transform relative">
-    <span className="build-for-everyone-bg-2 hidden lg:block" />
+    <span className="build-for-everyone-bg-2 " />
 
     <Image
       src={a.image}
