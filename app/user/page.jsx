@@ -41,7 +41,8 @@ export default function UserDetailsPage() {
         </p>
 
         <div className="mt-[7.5rem] grid gap-8 sm:grid-cols-2 place-items-center">
-          <div
+          <Link
+            href="/login"
             className={`group w-full max-w-[380px] rounded-xl border bg-[#EDF7EC] p-6 text-left transition
                         hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F7A45]
                         ${role === "client" ? "border-[#49AE44]" : "border-[#D1E7D7]"}`}
@@ -62,9 +63,10 @@ export default function UserDetailsPage() {
             <p className="mt-1.5 font-medium text-center text-[14px] text-[#2F7A45]">
               Discover services & track projects effortlessly.
             </p>
-          </div>
+          </Link>
 
-          <div
+          <Link
+            href="/login"
             className={`group w-full max-w-[380px] rounded-xl border bg-[#F7FAFC] p-6 text-left transition
                         hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2F7A45]
                         ${role === "owner" ? "border-[#C9D7E5]" : "border-gray-300"}`}
@@ -85,12 +87,8 @@ export default function UserDetailsPage() {
             <p className="mt-2 text-center text-xs text-[#6B7280]">
               Manage jobs, staff & clients with ease.
             </p>
-          </div>
+          </Link>
         </div>
-
-        <Link className="mt-8 inline-block rounded-[8px] bg-[#49AE44] px-6 py-3 text-white" href="/">
-          Back to Home
-        </Link>
 
       </div>
     </main>

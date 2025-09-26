@@ -30,7 +30,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section className="mb-[10.9rem]">
+    <section className=" mb-[5rem] sm:mb-[8rem] md:mb-[10.9rem] lg:mb-[12.9rem]">
       <div className="px-4 sm:px-6 lg:px-0">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-[#F4F6F8]">
           {features.map((item, idx) => (
