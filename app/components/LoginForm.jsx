@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
+import { Suspense } from "react";
 
 const LoginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Enter a valid email"),
@@ -107,6 +108,7 @@ export default function LoginForm() {
   };
 
   return (
+        <Suspense fallback={null}>
 
     <div className="w-full">
       <Toaster position="top-right" />
@@ -194,6 +196,7 @@ export default function LoginForm() {
         </p>
       </form>
     </div>
+    </Suspense>
 
   );
 }
