@@ -1,14 +1,22 @@
+// app/(auth)/reset-otp/page.tsx  (works in .tsx or .jsx)
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FiChevronLeft } from "react-icons/fi";
-import { Suspense } from "react";
 
 const VERIFY_URL = "https://apitest.softvencefsd.xyz/api/forgot-verify-otp";
 const RESEND_URL = "https://apitest.softvencefsd.xyz/api/resend_otp";
 
 export default function ResetOtpVerifyPage() {
+  return (
+    <Suspense fallback={null}>
+      <ResetOtpClient />
+    </Suspense>
+  );
+}
+
+function ResetOtpClient() {
   const router = useRouter();
   const search = useSearchParams();
 
@@ -57,49 +65,49 @@ export default function ResetOtpVerifyPage() {
     const text = (e.clipboardData?.getData("text") || "").replace(/\D/g, "").slice(0, 6);
     if (!text) return;
     e.preventDefault();
-    const next = text.split(""); while (next.length < 6) next.push("");
+    const next = text.split("");
+    while (next.length < 6) next.push("");
     setDigits(next);
     inputsRef.current[Math.min(text.length, 5)]?.focus();
   };
 
-const verify = async () => {
-  setError("");
-  if (!email) return setError("Please enter your email first.");
-  if (code.length !== 6) return setError("Please enter the 6-digit code.");
+  const verify = async () => {
+    setError("");
+    if (!email) return setError("Please enter your email first.");
+    if (code.length !== 6) return setError("Please enter the 6-digit code.");
 
-  setLoading(true);
-  try {
-    const res = await fetch(VERIFY_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ email, otp: code }),
-    });
-    const data = await res.json().catch(() => ({}));
+    setLoading(true);
+    try {
+      const res = await fetch(VERIFY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email, otp: code }),
+      });
+      const data = await res.json().catch(() => ({}));
 
-    if (!res.ok || data?.status === false) {
-      const msg = data?.message || (data?.errors?.otp && data.errors.otp[0]) || "Verification failed";
-      throw new Error(msg);
+      if (!res.ok || data?.status === false) {
+        const msg = data?.message || (data?.errors?.otp && data.errors.otp[0]) || "Verification failed";
+        throw new Error(msg);
+      }
+
+      const token = data?.data?.token;
+      if (!token) throw new Error("Reset token not found in response.");
+
+      if (typeof window !== "undefined") {
+        localStorage.setItem("forgot_email", email);
+        localStorage.setItem("reset_token", token);
+      }
+
+      const url = `/reset-password?token=${encodeURIComponent(token)}${
+        email ? `&email=${encodeURIComponent(email)}` : ""
+      }`;
+      router.replace(url);
+    } catch (err) {
+      setError(err?.message || "Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
     }
-
-    const token = data?.data?.token;
-    if (!token) throw new Error("Reset token not found in response.");
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("forgot_email", email);
-      localStorage.setItem("reset_token", token);
-    }
-
-    const url = `/reset-password?token=${encodeURIComponent(token)}${
-      email ? `&email=${encodeURIComponent(email)}` : ""
-    }`;
-    router.replace(url);
-  } catch (err) {
-    setError(err.message || "Something went wrong. Try again.");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   const resend = async () => {
     setError("");
@@ -116,16 +124,13 @@ const verify = async () => {
         throw new Error(data?.message || "Unable to resend code");
       }
     } catch (err) {
-      setError(err.message || "Unable to resend code");
+      setError(err?.message || "Unable to resend code");
     } finally {
       setResending(false);
     }
   };
 
   return (
-        <Suspense fallback={null}>
-
-
     <div className="w-full mt-[-100px]">
       <button
         type="button"
@@ -202,7 +207,5 @@ const verify = async () => {
         </button>
       </p>
     </div>
-    </Suspense>
-
   );
 }
