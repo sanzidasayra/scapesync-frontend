@@ -32,9 +32,7 @@ const reviews = [
 
 const container = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.08 },
-  },
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
 const item = {
@@ -48,26 +46,19 @@ const item = {
 
 const UserReview = () => {
   useEffect(() => {
-    AOS.init({
-      once: true,
-      duration: 700,
-      easing: "ease-out-cubic",
-      offset: 80,
-    });
+    AOS.init({ once: true, duration: 700, easing: "ease-out-cubic", offset: 80 });
   }, []);
 
   return (
-    <div>
-      <div
-        className="px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24 md:mt-32"
-        data-aos="fade-up"
-      >
-        <h1 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl text-[#212B36] mb-2 ">
+    <section className="relative">
+        <span className="user-review-bg"></span>
+
+      <div className="px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24 md:mt-32" data-aos="fade-up">
+        <h1 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl text-[#212B36] mb-2">
           What Our Users Are Saying
         </h1>
         <p className="text-center text-sm text-[#637381] text-[14px]">
-          Real stories from clients, employees, and business owners who use our
-          app every day.
+          Real stories from clients, employees, and business owners who use our app every day.
         </p>
       </div>
 
@@ -87,16 +78,10 @@ const UserReview = () => {
             whileHover={{ y: -3, transition: { type: "spring", stiffness: 300, damping: 18 } }}
             className="relative overflow-hidden rounded-[1.4rem] border border-white bg-white p-6 shadow-md"
             data-aos="zoom-in-up"
-            data-aos-delay={120 + i * 120} 
+            data-aos-delay={120 + i * 120}
           >
-            <Image
-              src="/assets/quote.png"
-              alt="Decorative quote watermark"
-              aria-hidden="true"
-              width={64}
-              height={52}
-              className="pointer-events-none select-none absolute -left-2 top-10 h-[52px] w-[64px] opacity-60 "
-            />
+       
+        
 
             <figcaption className="relative z-[1] flex items-center gap-3">
               <Image
@@ -113,12 +98,21 @@ const UserReview = () => {
             </figcaption>
 
             <blockquote className="relative z-[1] mt-4 text-[15px] leading-7 text-slate-700">
-              <p>{t.quote}</p>
+                  <Image
+              src="/assets/quote-mark.png"
+              alt=""
+              aria-hidden="true"
+              width={64}
+              height={52}
+              className="card-quote-mark absolute z-1 -top-4"
+              priority={i === 0}
+            />
+              <p className="relative z-20 max-w-sm">{t.quote}</p>
             </blockquote>
           </motion.figure>
         ))}
       </motion.div>
-    </div>
+    </section>
   );
 };
 

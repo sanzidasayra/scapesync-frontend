@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+    overflow-x: hidden;
+
 }
 
 @theme inline {
@@ -24,3 +27,127 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.hero-bg {
+position: absolute;
+width: 637.58px;
+height: 922.74px;
+left: 113.73px;
+top: 28.93px;
+
+background: rgba(155, 255, 150, 0.1);
+filter: blur(150px);
+transform: rotate(-45.51deg);
+}
+
+
+.hero-bg-2 {
+position: absolute;
+width: 560.34px;
+height: 630.07px;
+left: -576px;
+top: -156px;
+
+background: rgba(157, 255, 153, 0.2);
+filter: blur(150px);
+transform: rotate(33.68deg);
+}
+
+.phone-fade {
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+
+@media (min-width: 1280px) {
+  .phone-fade {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 72%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 72%, rgba(0,0,0,0) 100%);
+  }
+  .phone-blur-tail {
+    filter: blur(5px);
+    opacity: 0.55;
+  }
+}
+
+.build-for-everyone-bg {
+position: absolute;
+width: 408.5px;
+height: 525.55px;
+left: -925px;
+top: 100px;
+
+background: rgba(157, 255, 153, 0.2);
+filter: blur(150px);
+transform: rotate(54.74deg);
+
+}
+
+.build-for-everyone-bg-2 {
+position: absolute;
+width: 551.91px;
+height: 800.02px;
+background: rgba(155, 255, 150, 0.1);
+filter: blur(150px);
+transform: rotate(-45.51deg);
+}
+
+.bfe-phone-fade {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 72%,
+    rgba(0,0,0,0) 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 72%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+
+@media (min-width: 1280px) {
+  .bfe-phone-fade {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 74%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 74%, rgba(0,0,0,0) 100%);
+  }
+  .bfe-phone-tail {
+    filter: blur(3px);
+    opacity: 0.85;
+  }
+}
+
+
+.faq-bg {
+position: absolute;
+width: 505.61px;
+height: 732.9px;
+right:1200px;
+background: rgba(155, 255, 150, 0.1);
+filter: blur(150px);
+transform: rotate(19.59deg);
+
+}
+
+.faq-bg-2 {
+position: absolute;
+width: 505.61px;
+height: 732.9px;
+left:1200px;
+background: rgba(155, 255, 150, 0.1);
+filter: blur(150px);
+transform: rotate(19.59deg);
+}
+
+.user-review-bg {
+position: absolute;
+width: 505.61px;
+height: 732.9px;
+left:500px;
+background: rgba(155, 255, 150, 0.1);
+filter: blur(150px);
+transform: rotate(19.59deg);
+}
+

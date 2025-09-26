@@ -40,11 +40,13 @@ export default function FAQSection() {
       aria-labelledby="faq-heading"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20"
     >
-      <div className="mb-8 sm:mb-10 md:mb-12" data-aos="fade-up">
+      <div className="mb-8 sm:mb-10 md:mb-12 relative" data-aos="fade-up">
         <h1
           id="faq-heading"
           className="text-center font-bold text-[#212B36] text-3xl sm:text-4xl md:text-5xl"
         >
+          <span className="faq-bg "></span>
+          <span className="faq-bg-2 "></span>
           Frequently Asked Questions
         </h1>
         <p className="mt-2 text-center text-[#637381] text-sm sm:text-base">

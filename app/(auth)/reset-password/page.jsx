@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FiChevronLeft } from "react-icons/fi";
 import { IoEyeOff } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
+import { Suspense } from "react";
 
 
 
@@ -87,6 +88,8 @@ export default function ResetPasswordPage() {
   };
 
   return (
+        <Suspense fallback={null}>
+
     <div className="w-full mt-[-100px]">
       <button
         type="button"
@@ -165,5 +168,7 @@ export default function ResetPasswordPage() {
         </p>
       )}
     </div>
+        </Suspense>
+
   );
 }

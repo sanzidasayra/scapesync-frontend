@@ -186,11 +186,14 @@ export default function BuildForEveryone() {
       </div>
 
       <div className="px-4 sm:px-6 lg:px-8 mx-auto max-w-[103rem] z-auto">
+        
         <header className="mx-auto max-w-2xl text-center" data-aos="fade-up">
           <h2
             id="bfe-heading"
             className="font-bold text-3xl sm:text-4xl lg:text-[48px]"
           >
+                  <span className="build-for-everyone-bg"></span>
+
             Build for Everyone
           </h2>
           <p className="mt-2 text-[13px] sm:text-sm md:text-base text-[#637381]">
@@ -244,29 +247,41 @@ export default function BuildForEveryone() {
                   </ul>
                 </motion.div>
 
-                <motion.div
-                  variants={imagePop}
-                  className={
-                    (swap ? "md:order-1 " : "") + "xl:w-[610px] xl:justify-self-end"
-                  }
-                  whileHover={
-                    reduce
-                      ? undefined
-                      : { scale: 1.02, rotate: 0.2, transition: { type: "spring", stiffness: 180, damping: 14 } }
-                  }
-                >
-                  <motion.div {...floatAnim} className="will-change-transform">
-                    <Image
-                      src={a.image}
-                      alt={a.imageAlt}
-                      width={610}
-                      height={516}
-                      className="w-full h-auto"
-                      priority={i === 0}
-                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 610px"
-                    />
-                  </motion.div>
-                </motion.div>
+             <motion.div
+  variants={imagePop}
+  className={(swap ? "md:order-1 " : "") + "xl:w-[610px] xl:justify-self-end"}
+  whileHover={
+    reduce
+      ? undefined
+      : { scale: 1.02, rotate: 0.2, transition: { type: "spring", stiffness: 180, damping: 14 } }
+  }
+>
+  <motion.div {...floatAnim} className="will-change-transform relative">
+    <span className="build-for-everyone-bg-2 hidden lg:block" />
+
+    <Image
+      src={a.image}
+      alt={a.imageAlt}
+      width={610}
+      height={516}
+      className="w-full h-auto bfe-phone-fade relative z-[1]"
+      priority={i === 0}
+      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 610px"
+    />
+
+    <Image
+      src={a.image}
+      alt=""
+      aria-hidden="true"
+      width={610}
+      height={516}
+      className="w-full h-auto bfe-phone-tail absolute left-1/2 -translate-x-1/2 bottom-0 z-0 pointer-events-none"
+      priority={false}
+      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 610px"
+    />
+  </motion.div>
+</motion.div>
+
               </div>
             );
           })}

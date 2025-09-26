@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FiChevronLeft } from "react-icons/fi";
+import { Suspense } from "react";
 
 export default function VerifyEmailPage() {
   const router = useRouter();
@@ -107,6 +108,8 @@ export default function VerifyEmailPage() {
   };
 
   return (
+        <Suspense fallback={null}>
+
     <div className="w-full mt-[-100px]">
       <button
         type="button"
@@ -171,5 +174,7 @@ export default function VerifyEmailPage() {
         </button>
       </p>
     </div>
+        </Suspense>
+
   );
 }

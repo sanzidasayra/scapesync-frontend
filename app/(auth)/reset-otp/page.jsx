@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FiChevronLeft } from "react-icons/fi";
+import { Suspense } from "react";
 
 const VERIFY_URL = "https://apitest.softvencefsd.xyz/api/forgot-verify-otp";
 const RESEND_URL = "https://apitest.softvencefsd.xyz/api/resend_otp";
@@ -122,6 +123,8 @@ const verify = async () => {
   };
 
   return (
+        <Suspense fallback={null}>
+
     <div className="w-full mt-[-100px]">
       <button
         type="button"
@@ -198,5 +201,7 @@ const verify = async () => {
         </button>
       </p>
     </div>
+        </Suspense>
+
   );
 }
