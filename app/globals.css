@@ -1,18 +1,14 @@
 @import "tailwindcss";
 
-/* put this near the top of your globals.css */
 html, body {
-  /* prevents any horizontal scroll, including transform/blur overflow */
-  overflow-x: clip;      /* modern browsers */
+  overflow-x: clip;      
   overflow-y: visible;
 }
 
 @supports not (overflow: clip) {
-  html, body { overflow-x: hidden; }  /* fallback */
+  html, body { overflow-x: hidden; }  
 }
 
-/* Optional: stabilizes layout when vertical scrollbar appears */
-html { scrollbar-gutter: stable both-edges; }
 
 :root {
   --background: #ffffff;
