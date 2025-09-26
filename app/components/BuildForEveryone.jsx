@@ -192,7 +192,7 @@ export default function BuildForEveryone() {
             id="bfe-heading"
             className="font-bold text-3xl sm:text-4xl lg:text-[48px]"
           >
-                  <span className="build-for-everyone-bg"></span>
+                  <span className="build-for-everyone-bg hidden lg:block"></span>
 
             Build for Everyone
           </h2>
