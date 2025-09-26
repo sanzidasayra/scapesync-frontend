@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiPlus, HiMinus } from "react-icons/hi";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
-export default function FAQ() {
+export default function FAQSection() {
   const items = [
     {
       q: "Is the app free to use?",
@@ -17,19 +19,28 @@ export default function FAQ() {
       a: "Yes, our app is designed to work seamlessly on both mobile and desktop devices.",
     },
     {
-    q: "Can I create recurring jobs or schedules?",
-    a: "Absolutely. Set jobs to repeat daily, weekly, or on custom intervals with automatic reminders.",
-    }
+      q: "Can I create recurring jobs or schedules?",
+      a: "Absolutely. Set jobs to repeat daily, weekly, or on custom intervals with automatic reminders.",
+    },
   ];
 
-  const [openIdx, setOpenIdx] = useState(null);
+  const [openIdx, setOpenIdx] = useState(null); 
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      duration: 650,
+      easing: "ease-out-cubic",
+      offset: 80,
+    });
+  }, []);
 
   return (
     <section
       aria-labelledby="faq-heading"
       className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20"
     >
-      <div className="mb-8 sm:mb-10 md:mb-12">
+      <div className="mb-8 sm:mb-10 md:mb-12" data-aos="fade-up">
         <h1
           id="faq-heading"
           className="text-center font-bold text-[#212B36] text-3xl sm:text-4xl md:text-5xl"
@@ -41,13 +52,15 @@ export default function FAQ() {
         </p>
       </div>
 
-      <dl className="space-y-3 sm:space-y-4">
+      <dl className="space-y-3 sm:space-y-4" data-aos="fade-up" data-aos-delay="80">
         {items.map((it, i) => {
           const isOpen = openIdx === i;
           return (
             <div
               key={i}
               className="rounded-2xl border border-[#C7E6C5] bg-white dark:bg-[#0f172a] dark:border-white/10 p-4 sm:p-5"
+              data-aos="fade-up"
+              data-aos-delay={120 + i * 100}
             >
               <dt>
                 <button

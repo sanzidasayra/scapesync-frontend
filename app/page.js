@@ -1,8 +1,8 @@
-import FAQ from "./components/FAQ";
 import UserReview from "./components/UserReview";
 import Banner from "./components/Banner";
 import FeaturesSection from "./components/FeaturesSection";
 import BuildForEveryone from "./components/BuildForEveryone";
+import FAQSection from "./components/FAQSection";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <FeaturesSection />
       <BuildForEveryone />
       <UserReview />
-      <FAQ />
+      <FAQSection />
     </div>
   );
 }

@@ -1,5 +1,10 @@
+'use client';
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const features = [
   {
@@ -29,17 +34,62 @@ const features = [
 ];
 
 const FeaturesSection = () => {
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      duration: 650,
+      easing: "ease-out-cubic",
+      offset: 60,
+    });
+  }, []);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: reduce
+      ? { opacity: 1 }
+      : {
+          opacity: 1,
+          transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+        },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 18 },
+    show: reduce
+      ? { opacity: 1, y: 0 }
+      : {
+          opacity: 1,
+          y: 0,
+          transition: { type: "spring", stiffness: 120, damping: 18 },
+        },
+  };
+
   return (
-    <section className=" mb-[5rem] sm:mb-[8rem] md:mb-[10.9rem] lg:mb-[12.9rem]">
+    <motion.section
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.35 }}
+      className=" mb-[5rem] sm:mb-[8rem] md:mb-[10.9rem] lg:mb-[12.9rem]"
+      data-aos="fade-up"
+    >
       <div className="px-4 sm:px-6 lg:px-0">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-[#F4F6F8]">
-          {features.map((item, idx) => (
-            <div key={idx} className="py-6 lg:px-8">
+          {features.map((itemData, idx) => (
+            <motion.div
+              key={idx}
+              variants={item}
+              className="py-6 lg:px-8"
+              data-aos="fade-up"
+              data-aos-delay={idx * 80} 
+            >
               <div className="items-start gap-4">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#ECFCEB] ring-1 ring-green-200/60">
                   <Image
-                    src={item.icon}
-                    alt={item.iconAlt ?? ""}
+                    src={itemData.icon}
+                    alt={itemData.iconAlt ?? ""}
                     width={20}
                     height={20}
                     className="object-contain"
@@ -49,16 +99,16 @@ const FeaturesSection = () => {
                 </span>
                 <div>
                   <h3 className="text-[#212B36] font-semibold mt-[1.2rem]">
-                    {item.title}
+                    {itemData.title}
                   </h3>
-                  <p className="mt-1 text-sm text-[#637381]">{item.desc}</p>
+                  <p className="mt-1 text-sm text-[#637381]">{itemData.desc}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

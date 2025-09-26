@@ -1,8 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const reviews = [
   {
@@ -37,21 +39,37 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 220, damping: 20 } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 220, damping: 20 },
+  },
 };
 
 const UserReview = () => {
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      duration: 700,
+      easing: "ease-out-cubic",
+      offset: 80,
+    });
+  }, []);
+
   return (
     <div>
-      <div className="px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24 md:mt-32">
+      <div
+        className="px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24 md:mt-32"
+        data-aos="fade-up"
+      >
         <h1 className="text-center font-bold text-3xl sm:text-4xl md:text-5xl text-[#212B36] mb-2 ">
           What Our Users Are Saying
         </h1>
         <p className="text-center text-sm text-[#637381] text-[14px]">
-          Real stories from clients, employees, and business owners who use our app every day.
+          Real stories from clients, employees, and business owners who use our
+          app every day.
         </p>
       </div>
-
 
       <motion.div
         className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 px-4 sm:px-6 lg:px-8"
@@ -59,13 +77,17 @@ const UserReview = () => {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.15 }}
+        data-aos="fade-up"
+        data-aos-delay="100"
       >
         {reviews.map((t, i) => (
           <motion.figure
             key={i}
             variants={item}
-            whileHover={{ y: -3 }}
-            className="relative overflow-hidden  rounded-[1.4rem] border border-white bg-white p-6 shadow-md"
+            whileHover={{ y: -3, transition: { type: "spring", stiffness: 300, damping: 18 } }}
+            className="relative overflow-hidden rounded-[1.4rem] border border-white bg-white p-6 shadow-md"
+            data-aos="zoom-in-up"
+            data-aos-delay={120 + i * 120} 
           >
             <Image
               src="/assets/quote.png"

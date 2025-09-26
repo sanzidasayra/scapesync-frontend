@@ -1,6 +1,9 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const LINES = {
   top: "/assets/banner-bg2.png",
@@ -105,8 +108,64 @@ function RowDecor({ row }) {
 }
 
 export default function BuildForEveryone() {
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      duration: 700,
+      easing: "ease-out-cubic",
+      offset: 80,
+    });
+  }, []);
+
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    show: reduce
+      ? { opacity: 1 }
+      : { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  };
+
+  const textLeft = {
+    hidden: { opacity: 0, x: -60 },
+    show: reduce
+      ? { opacity: 1, x: 0 }
+      : { opacity: 1, x: 0, transition: { type: "spring", stiffness: 110, damping: 18 } },
+  };
+
+  const textRight = {
+    hidden: { opacity: 0, x: 60 },
+    show: reduce
+      ? { opacity: 1, x: 0 }
+      : { opacity: 1, x: 0, transition: { type: "spring", stiffness: 110, damping: 18 } },
+  };
+
+  const imagePop = {
+    hidden: { opacity: 0, y: 24, scale: 0.96 },
+    show: reduce
+      ? { opacity: 1, y: 0, scale: 1 }
+      : { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 140, damping: 16 } },
+  };
+
+  const floatAnim = reduce
+    ? {}
+    : {
+        animate: {
+          y: [0, -6, 0],
+          transition: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+        },
+      };
+
   return (
-    <section aria-labelledby="bfe-heading" className="relative">
+    <motion.section
+      aria-labelledby="bfe-heading"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.35 }}
+      className="relative"
+      data-aos="fade-up"
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -z-10 hidden xl:block"
@@ -127,7 +186,7 @@ export default function BuildForEveryone() {
       </div>
 
       <div className="px-4 sm:px-6 lg:px-8 mx-auto max-w-[103rem] z-auto">
-        <header className="mx-auto max-w-2xl text-center">
+        <header className="mx-auto max-w-2xl text-center" data-aos="fade-up">
           <h2
             id="bfe-heading"
             className="font-bold text-3xl sm:text-4xl lg:text-[48px]"
@@ -153,8 +212,13 @@ export default function BuildForEveryone() {
                   xl:[grid-template-columns:minmax(0,56ch)_minmax(0,610px)]
                   xl:justify-between
                 "
+                data-aos="fade-up"
+                data-aos-delay={i * 80}
               >
-                <div className={(swap ? "md:order-2 " : "") + "xl:max-w-[56ch]"}>
+                <motion.div
+                  variants={swap ? textRight : textLeft}
+                  className={(swap ? "md:order-2 " : "") + "xl:max-w-[56ch]"}
+                >
                   <button
                     type="button"
                     aria-label={a.badge}
@@ -167,7 +231,7 @@ export default function BuildForEveryone() {
                     {a.title}
                   </h3>
 
-                  <p className="mt-3 sm:mt-4 text-[#637381] text-base sm:text-[17px] md:text-[18px] leading-relaxed">
+                  <p className="mt-3 sm:mt-4 text-[#637381] text-base sm:text[17px] md:text-[18px] leading-relaxed">
                     {a.desc}
                   </p>
 
@@ -178,29 +242,36 @@ export default function BuildForEveryone() {
                       </Bullet>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
 
-                <div
+                <motion.div
+                  variants={imagePop}
                   className={
-                    (swap ? "md:order-1 " : "") +
-                    "xl:w-[610px] xl:justify-self-end"
+                    (swap ? "md:order-1 " : "") + "xl:w-[610px] xl:justify-self-end"
+                  }
+                  whileHover={
+                    reduce
+                      ? undefined
+                      : { scale: 1.02, rotate: 0.2, transition: { type: "spring", stiffness: 180, damping: 14 } }
                   }
                 >
-                  <Image
-                    src={a.image}
-                    alt={a.imageAlt}
-                    width={610}
-                    height={516}
-                    className="w-full h-auto"
-                    priority={i === 0}
-                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 610px"
-                  />
-                </div>
+                  <motion.div {...floatAnim} className="will-change-transform">
+                    <Image
+                      src={a.image}
+                      alt={a.imageAlt}
+                      width={610}
+                      height={516}
+                      className="w-full h-auto"
+                      priority={i === 0}
+                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 50vw, 610px"
+                    />
+                  </motion.div>
+                </motion.div>
               </div>
             );
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
