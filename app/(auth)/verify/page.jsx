@@ -1,13 +1,22 @@
+// app/(auth)/verify-email/page.jsx
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FiChevronLeft } from "react-icons/fi";
-import { Suspense } from "react";
 
 export default function VerifyEmailPage() {
+  // No hooks here — only the Suspense boundary
+  return (
+    <Suspense fallback={null}>
+      <VerifyEmailClient />
+    </Suspense>
+  );
+}
+
+function VerifyEmailClient() {
   const router = useRouter();
-  const search = useSearchParams();
+  const search = useSearchParams(); // now safely inside Suspense
   const email = search.get("email") || "";
 
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
@@ -80,7 +89,6 @@ export default function VerifyEmailPage() {
       }
 
       setDigits(["", "", "", "", "", ""]);
-
       router.replace(`/login?verified=1&email=${encodeURIComponent(email)}`);
     } catch (err) {
       setError(err.message || "Something went wrong. Try again.");
@@ -108,8 +116,6 @@ export default function VerifyEmailPage() {
   };
 
   return (
-        <Suspense fallback={null}>
-
     <div className="w-full mt-[-100px]">
       <button
         type="button"
@@ -126,8 +132,8 @@ export default function VerifyEmailPage() {
 
       <p className="mt-2 text-sm text-[#6B7280] max-w-md mx-auto">
         We’ve emailed a 6-digit confirmation code to{" "}
-        <span className="font-medium text-[#111827]">{email || "your inbox"}</span>,
-        please enter the code in the boxes below to verify your email.
+        <span className="font-medium text-[#111827]">{email || "your inbox"}</span>, please
+        enter the code in the boxes below to verify your email.
       </p>
 
       <div className="mt-6 flex items-center justify-center gap-3">
@@ -148,9 +154,7 @@ export default function VerifyEmailPage() {
         ))}
       </div>
 
-      {error ? (
-        <div className="mt-3 text-sm text-red-600 text-center">{error}</div>
-      ) : null}
+      {error ? <div className="mt-3 text-sm text-red-600 text-center">{error}</div> : null}
 
       <button
         type="button"
@@ -174,7 +178,5 @@ export default function VerifyEmailPage() {
         </button>
       </p>
     </div>
-    </Suspense>
-
   );
 }

@@ -1,6 +1,7 @@
+// app/(auth)/login/page.jsx  (or wherever this component lives)
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
@@ -8,7 +9,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
-import { Suspense } from "react";
 
 const LoginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Enter a valid email"),
@@ -20,8 +20,17 @@ const LoginSchema = z.object({
 });
 
 export default function LoginForm() {
+  // No hooks here — only Suspense
+  return (
+    <Suspense fallback={null}>
+      <LoginFormClient />
+    </Suspense>
+  );
+}
+
+function LoginFormClient() {
   const router = useRouter();
-  const search = useSearchParams();
+  const search = useSearchParams(); // now safely inside Suspense
 
   const [form, setForm] = useState({
     email: "",
@@ -108,8 +117,6 @@ export default function LoginForm() {
   };
 
   return (
-        <Suspense fallback={null}>
-
     <div className="w-full">
       <Toaster position="top-right" />
 
@@ -150,9 +157,7 @@ export default function LoginForm() {
             <input
               type="checkbox"
               checked={form.remember_me}
-              onChange={(e) =>
-                setForm((p) => ({ ...p, remember_me: e.target.checked }))
-              }
+              onChange={(e) => setForm((p) => ({ ...p, remember_me: e.target.checked }))}
               className="h-4 w-4 rounded border-gray-300 text-[#2F7A45] focus:ring-[#2F7A45] accent-[#2F7A45]"
             />
             <span>Remember me</span>
@@ -196,7 +201,5 @@ export default function LoginForm() {
         </p>
       </form>
     </div>
-    </Suspense>
-
   );
 }

@@ -1,3 +1,4 @@
+// app/(auth)/reset-password/page.jsx
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
@@ -7,11 +8,18 @@ import { IoEyeOff } from "react-icons/io5";
 import { FaEye } from "react-icons/fa";
 import { Suspense } from "react";
 
-
-
 export default function ResetPasswordPage() {
+  // IMPORTANT: no hooks here — just the Suspense boundary
+  return (
+    <Suspense fallback={null}>
+      <ResetPasswordClient />
+    </Suspense>
+  );
+}
+
+function ResetPasswordClient() {
   const router = useRouter();
-  const search = useSearchParams();
+  const search = useSearchParams(); // now safely inside Suspense
 
   const [token, setToken] = useState(search.get("token") || "");
 
@@ -88,8 +96,6 @@ export default function ResetPasswordPage() {
   };
 
   return (
-        <Suspense fallback={null}>
-
     <div className="w-full mt-[-100px]">
       <button
         type="button"
@@ -127,7 +133,7 @@ export default function ResetPasswordPage() {
             className="absolute inset-y-0 right-3 flex items-center text-gray-500"
             aria-label={showPwd ? "Hide password" : "Show password"}
           >
-            {showPwd ? <IoEyeOff size={18} /> : <FaEye  size={18} />}
+            {showPwd ? <IoEyeOff size={18} /> : <FaEye size={18} />}
           </button>
         </div>
 
@@ -168,7 +174,5 @@ export default function ResetPasswordPage() {
         </p>
       )}
     </div>
-    </Suspense>
-
   );
 }
